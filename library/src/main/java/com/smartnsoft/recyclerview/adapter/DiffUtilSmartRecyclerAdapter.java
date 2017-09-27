@@ -34,7 +34,7 @@ public abstract class DiffUtilSmartRecyclerAdapter
 
     protected List<? extends SmartRecyclerViewWrapper<?>> newWrappers;
 
-    private SmartDiffUtilCallback(List<? extends SmartRecyclerViewWrapper<?>> oldWrappers,
+    public SmartDiffUtilCallback(List<? extends SmartRecyclerViewWrapper<?>> oldWrappers,
         List<? extends SmartRecyclerViewWrapper<?>> newWrappers)
     {
       this.oldWrappers = oldWrappers;
