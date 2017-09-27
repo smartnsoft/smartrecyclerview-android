@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.smartnsoft.recyclerview;
+package com.smartnsoft.recyclerview.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +43,9 @@ import android.view.ViewGroup;
 import com.smartnsoft.droid4me.framework.SmartAdapters.BusinessViewWrapper;
 import com.smartnsoft.droid4me.log.Logger;
 import com.smartnsoft.droid4me.log.LoggerFactory;
+
+import com.smartnsoft.recyclerview.attributes.SmartRecyclerAttributes;
+import com.smartnsoft.recyclerview.wrapper.SmartRecyclerViewWrapper;
 
 /**
  * A {@link RecyclerView} adapter, which works closely with the {@link SmartRecyclerViewWrapper}.
@@ -313,6 +316,7 @@ public class SmartRecyclerAdapter
     {
       return wrappers.get(position).getSpanSize();
     }
+
     return 1;
   }
 

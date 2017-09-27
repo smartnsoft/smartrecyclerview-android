@@ -20,31 +20,33 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.smartnsoft.recyclerview;
+package com.smartnsoft.recyclerview.attributes;
 
-import android.support.v7.widget.RecyclerView;
+import android.app.Activity;
+import android.support.v7.widget.RecyclerView.ViewHolder;
+import android.view.View;
 
 /**
- * A {@link RecyclerView} adapter, which works closely with the {@link SmartRecyclerViewWrapper}.
+ * Is responsible for creating a new {@link View}, which is able to represent the provided business object.
  *
- * @author Jocelyn Girard, Ludovic Roland, Adrien Vitti
+ * @author Jocelyn Girard, Ludovic Roland
  * @since 2014.04.16
  */
-public abstract class SpanRecyclerViewWrapper<BusinessObjectType>
-    extends SmartRecyclerViewWrapper<BusinessObjectType>
+public abstract class SmartRecyclerAttributes<BusinessObjectType>
+    extends ViewHolder
 {
 
-  private final int spanSize;
+  protected String intentFilterCategory;
 
-  protected SpanRecyclerViewWrapper(BusinessObjectType businessObject, int type, int layoutResourceId, int spanSize)
+  public SmartRecyclerAttributes(View view)
   {
-    super(businessObject, type, layoutResourceId);
-    this.spanSize = spanSize;
+    super(view);
   }
 
-  @Override
-  public int getSpanSize()
+  public abstract void update(Activity activity, BusinessObjectType businessObject, boolean isSelected);
+
+  public void setIntentFilterCategory(String intentFilterCategory)
   {
-    return spanSize;
+    this.intentFilterCategory = intentFilterCategory;
   }
 }

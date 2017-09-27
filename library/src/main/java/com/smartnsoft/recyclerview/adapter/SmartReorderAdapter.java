@@ -20,14 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.smartnsoft.recyclerview;
+package com.smartnsoft.recyclerview.adapter;
 
 import java.util.Collections;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
 
-import com.smartnsoft.recyclerview.SmartReorderRecyclerView.ReorderAdapter;
+import com.smartnsoft.recyclerview.recyclerview.SmartReorderRecyclerView.ReorderAdapter;
 
 /**
  * @author Adrien Vitti

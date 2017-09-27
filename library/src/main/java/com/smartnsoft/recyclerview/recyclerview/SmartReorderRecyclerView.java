@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.smartnsoft.recyclerview;
+package com.smartnsoft.recyclerview.recyclerview;
 
 /*
  * Copyright (C) 2014 I.C.N.H GmbH
@@ -64,6 +64,8 @@ import android.view.View;
 
 import com.smartnsoft.droid4me.log.Logger;
 import com.smartnsoft.droid4me.log.LoggerFactory;
+
+import com.smartnsoft.recyclerview.adapter.SmartRecyclerAdapter;
 
 /**
  * A {@link android.support.v7.widget.RecyclerView} that provides reordering with drag&amp;drop. The Adapter has to be of type

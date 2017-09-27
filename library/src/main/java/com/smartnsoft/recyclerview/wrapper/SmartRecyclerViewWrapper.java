@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.smartnsoft.recyclerview;
+package com.smartnsoft.recyclerview.wrapper;
 
 import android.app.Activity;
 import android.content.Intent;

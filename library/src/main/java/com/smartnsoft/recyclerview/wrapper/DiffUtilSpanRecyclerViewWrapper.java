@@ -20,33 +20,29 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.smartnsoft.recyclerview;
+package com.smartnsoft.recyclerview.wrapper;
 
-import android.app.Activity;
-import android.support.v7.widget.RecyclerView.ViewHolder;
-import android.view.View;
+import android.support.annotation.LayoutRes;
+
+import com.smartnsoft.recyclerview.adapter.DiffUtilSmartRecyclerAdapter;
 
 /**
- * Is responsible for creating a new {@link View}, which is able to represent the provided business object.
+ * A {@link SpanRecyclerViewWrapper} that implements the {@link SmartDiffUtil} interface in order to be used with the {@link DiffUtilSmartRecyclerAdapter}.
  *
- * @author Jocelyn Girard, Ludovic Roland
- * @since 2014.04.16
+ * @param <BusinessObjectClass> the business object class which is represented by the current wrapper
+ * @author Ludovic Roland
+ * @see SpanRecyclerViewWrapper
+ * @since 2017.09.27
  */
-public abstract class SmartRecyclerAttributes<BusinessObjectType>
-    extends ViewHolder
+public abstract class DiffUtilSpanRecyclerViewWrapper<BusinessObjectClass>
+    extends SpanRecyclerViewWrapper<BusinessObjectClass>
+    implements SmartDiffUtil
 {
 
-  protected String intentFilterCategory;
-
-  public SmartRecyclerAttributes(View view)
+  protected DiffUtilSpanRecyclerViewWrapper(BusinessObjectClass businessObject, int type,
+      @LayoutRes int layoutResourceId, int spanSize)
   {
-    super(view);
+    super(businessObject, type, layoutResourceId, spanSize);
   }
 
-  public abstract void update(Activity activity, BusinessObjectType businessObject, boolean isSelected);
-
-  public void setIntentFilterCategory(String intentFilterCategory)
-  {
-    this.intentFilterCategory = intentFilterCategory;
-  }
 }

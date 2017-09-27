@@ -20,13 +20,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.smartnsoft.recyclerview;
+package com.smartnsoft.recyclerview.adapter;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
+
+import com.smartnsoft.recyclerview.attributes.SmartRecyclerAttributes;
+import com.smartnsoft.recyclerview.wrapper.SmartRecyclerViewWrapper;
 
 /**
  * @author Raphael Kiffer
