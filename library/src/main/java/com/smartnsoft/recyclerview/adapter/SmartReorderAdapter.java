@@ -46,6 +46,7 @@ public class SmartReorderAdapter
   public void swapElements(int fromIndex, int toIndex)
   {
     Collections.swap(wrappers, fromIndex, toIndex);
+
     final int startPosition;
     final int range;
     if (fromIndex > toIndex)
@@ -58,6 +59,7 @@ public class SmartReorderAdapter
       startPosition = fromIndex;
       range = toIndex - fromIndex + 1;
     }
+
     notifyItemRangeChanged(startPosition, range);
   }
 

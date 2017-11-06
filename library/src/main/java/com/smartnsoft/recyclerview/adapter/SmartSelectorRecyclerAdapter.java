@@ -69,7 +69,7 @@ public class SmartSelectorRecyclerAdapter
     {
       final SmartRecyclerViewWrapper<?> wrapper = wrappers.get(position);
       final Object businessObject = wrapper.getBusinessObject();
-      smartRecyclerAttributes.update(activity, businessObject,
+      smartRecyclerAttributes.update(businessObject,
           selectableMap.containsKey(wrapper.getId()) && selectableMap.get(wrapper.getId()));
     }
   }

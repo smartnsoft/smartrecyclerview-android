@@ -23,14 +23,13 @@
 package com.smartnsoft.recyclerview.wrapper;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
-import com.smartnsoft.droid4me.framework.SmartAdapters.ObjectEvent;
-import com.smartnsoft.droid4me.framework.SmartAdapters.SimpleBusinessViewWrapper;
+import com.smartnsoft.recyclerview.attributes.SmartRecyclerAttributes;
 
 /**
  * Wraps a business object and its underlying Android {@link View} in a {@link RecyclerView}.
@@ -40,69 +39,62 @@ import com.smartnsoft.droid4me.framework.SmartAdapters.SimpleBusinessViewWrapper
  * @since 2014.04.16
  */
 public abstract class SmartRecyclerViewWrapper<BusinessObjectClass>
-    extends SimpleBusinessViewWrapper<BusinessObjectClass>
 {
+
+  private static final int DEFAULT_SPAN_SIZE = 1;
+
+  private BusinessObjectClass businessObject;
+
+  @LayoutRes
+  private int layoutResourceId;
+
+  private int type;
 
   public SmartRecyclerViewWrapper(BusinessObjectClass businessObject, int type, @LayoutRes int layoutResourceId)
   {
-    super(businessObject, type, layoutResourceId);
+    this.businessObject = businessObject;
+    this.type = type;
+    this.layoutResourceId = layoutResourceId;
   }
 
-  @Override
-  public final int getType(int position, BusinessObjectClass businessObjectClass)
+  public BusinessObjectClass getBusinessObject()
   {
-    return super.getType(position, businessObjectClass);
+    return businessObject;
   }
 
-  @Override
-  @Deprecated
-  public final boolean isEnabled(BusinessObjectClass businessObject)
+  public long getId()
   {
-    return super.isEnabled(businessObject);
-  }
-
-  @Override
-  @Deprecated
-  public final boolean containsText(BusinessObjectClass businessObject, String lowerText)
-  {
-    return super.containsText(businessObject, lowerText);
-  }
-
-  @Override
-  @Deprecated
-  public final Intent computeIntent(Activity activity, Object viewAttributes, View view,
-      BusinessObjectClass businessObject, ObjectEvent objectEvent, int position)
-  {
-    return super.computeIntent(activity, viewAttributes, view, businessObject, objectEvent, position);
-  }
-
-  @Override
-  @Deprecated
-  public final boolean onObjectEvent(Activity activity, Object viewAttributes, View view,
-      BusinessObjectClass businessObject, ObjectEvent objectEvent, int position)
-  {
-    return super.onObjectEvent(activity, viewAttributes, view, businessObject, objectEvent, position);
-  }
-
-  @Override
-  protected abstract Object extractNewViewAttributes(Activity activity, View view,
-      BusinessObjectClass businessObjectClass);
-
-  @Deprecated
-  @Override
-  protected void updateView(Activity activity, LayoutInflater layoutInflater, Object o, View view,
-      BusinessObjectClass businessObjectClass, int i)
-  {
-
+    return getId(businessObject);
   }
 
   public final int getType()
   {
-    return getType(Integer.MIN_VALUE);
+    return type;
   }
 
   public int getSpanSize()
   {
-    return 1;
+    return SmartRecyclerViewWrapper.DEFAULT_SPAN_SIZE;
   }
+
+  protected long getId(BusinessObjectClass businessObject)
+  {
+    return businessObject == null ? 0L : businessObject.hashCode();
+  }
+
+  public View getNewView(ViewGroup parent, Activity activity, LayoutInflater layoutInflater)
+  {
+    final View view = layoutInflater.inflate(layoutResourceId, parent, false);
+    view.setTag(extractNewViewAttributes(activity, view, businessObject));
+
+    return view;
+  }
+
+  public SmartRecyclerAttributes<BusinessObjectClass> getViewAttributes(View view)
+  {
+    return (SmartRecyclerAttributes<BusinessObjectClass>) view.getTag();
+  }
+
+  protected abstract Object extractNewViewAttributes(Activity activity, View view,
+      BusinessObjectClass businessObjectClass);
 }

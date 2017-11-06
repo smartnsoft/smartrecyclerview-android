@@ -30,7 +30,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.graphics.Point;
 import android.os.Build.VERSION_CODES;
-import android.support.annotation.NonNull;
+import android.support.annotation.UiThread;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
@@ -39,10 +39,6 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.smartnsoft.droid4me.framework.SmartAdapters.BusinessViewWrapper;
-import com.smartnsoft.droid4me.log.Logger;
-import com.smartnsoft.droid4me.log.LoggerFactory;
 
 import com.smartnsoft.recyclerview.attributes.SmartRecyclerAttributes;
 import com.smartnsoft.recyclerview.wrapper.SmartRecyclerViewWrapper;
@@ -121,7 +117,7 @@ public class SmartRecyclerAdapter
     BUSINESS_OBJECT_AND_WRAPPER_TYPE
   }
 
-  public final static class SnappyScrollListener
+  public static final class SnappyScrollListener
       extends RecyclerView.OnScrollListener
   {
 
@@ -142,34 +138,32 @@ public class SmartRecyclerAdapter
     public void onScrollStateChanged(RecyclerView recyclerView, int newState)
     {
       super.onScrollStateChanged(recyclerView, newState);
-      if (autoSet.get() == false)
+
+      if (autoSet.get() == false && newState == RecyclerView.SCROLL_STATE_IDLE)
       {
-        if (newState == RecyclerView.SCROLL_STATE_IDLE)
+        final LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+        final View view = findCenterView(layoutManager);
+        if (view != null)
         {
-          final LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-          final View view = findCenterView(layoutManager);
-          if (view != null)
-          {
-            final int scrollXNeeded = (screenCenterX - (view.getLeft() + view.getRight()) / 2);
-            recyclerView.smoothScrollBy(scrollXNeeded * (view.getRight() < screenCenterX ? 1 : -1), 0);
-          }
-          autoSet.set(true);
+          final int scrollXNeeded = (screenCenterX - (view.getLeft() + view.getRight()) / 2);
+          recyclerView.smoothScrollBy(scrollXNeeded * (view.getRight() < screenCenterX ? 1 : -1), 0);
         }
+        autoSet.set(true);
       }
+
       if (newState == RecyclerView.SCROLL_STATE_DRAGGING || newState == RecyclerView.SCROLL_STATE_SETTLING)
       {
         autoSet.set(false);
       }
     }
 
-    private final View findCenterView(LinearLayoutManager layoutManager)
+    private View findCenterView(LinearLayoutManager layoutManager)
     {
       int minDistance = 0;
       View centeredView = null;
       for (int itemPosition = layoutManager.findFirstVisibleItemPosition(); itemPosition <= layoutManager.findLastVisibleItemPosition(); itemPosition++)
       {
         final View view = layoutManager.findViewByPosition(itemPosition);
-
         final int leastDiff = Math.abs(screenCenterX - (view.getLeft() + view.getRight()) / 2);
         if (leastDiff <= minDistance || itemPosition == layoutManager.findFirstVisibleItemPosition())
         {
@@ -181,18 +175,17 @@ public class SmartRecyclerAdapter
           break;
         }
       }
+
       return centeredView;
     }
 
   }
 
-  public static final Logger log = LoggerFactory.getInstance(SmartRecyclerAdapter.class);
-
   protected final Activity activity;
 
   protected List<SmartRecyclerViewWrapper<?>> wrappers = new ArrayList<>();
 
-  private final SparseArray<BusinessViewWrapper<?>> viewTypeAttributesDictionnary = new SparseArray<>();
+  private final SparseArray<SmartRecyclerViewWrapper<?>> viewTypeAttributesDictionary = new SparseArray<>();
 
   private final LayoutInflater layoutInflater;
 
@@ -218,11 +211,11 @@ public class SmartRecyclerAdapter
   @Override
   public SmartRecyclerAttributes onCreateViewHolder(ViewGroup viewGroup, int viewType)
   {
-    final BusinessViewWrapper businessViewWrapper = viewTypeAttributesDictionnary.get(viewType);
-    final View view = businessViewWrapper.getNewView(viewGroup, activity, layoutInflater);
-    final SmartRecyclerAttributes viewAttributes = (SmartRecyclerAttributes) businessViewWrapper.getViewAttributes(
-        view);
+    final SmartRecyclerViewWrapper wrapper = viewTypeAttributesDictionary.get(viewType);
+    final View view = wrapper.getNewView(viewGroup, activity, layoutInflater);
+    final SmartRecyclerAttributes viewAttributes = wrapper.getViewAttributes(view);
     viewAttributes.setIntentFilterCategory(intentFilterCategory);
+
     return viewAttributes;
   }
 
@@ -230,7 +223,7 @@ public class SmartRecyclerAdapter
   public void onBindViewHolder(SmartRecyclerAttributes smartRecyclerAttributes, int position)
   {
     final Object businessObject = wrappers.get(position).getBusinessObject();
-    smartRecyclerAttributes.update(activity, businessObject, selectedPositionItem == position);
+    smartRecyclerAttributes.update(businessObject, selectedPositionItem == position);
   }
 
   @Override
@@ -263,7 +256,7 @@ public class SmartRecyclerAdapter
   @Override
   public final int getItemViewType(int position)
   {
-    return wrappers.get(position).getType(position);
+    return wrappers.get(position).getType();
   }
 
   /**
@@ -280,9 +273,9 @@ public class SmartRecyclerAdapter
     for (SmartRecyclerViewWrapper<?> wrapper : wrappers)
     {
       final int wrapperType = wrapper.getType();
-      if (viewTypeAttributesDictionnary.get(wrapperType) == null)
+      if (viewTypeAttributesDictionary.get(wrapperType) == null)
       {
-        viewTypeAttributesDictionnary.append(wrapperType, wrapper);
+        viewTypeAttributesDictionary.append(wrapperType, wrapper);
       }
     }
     if (shouldNotifyBeCalled)
@@ -291,17 +284,12 @@ public class SmartRecyclerAdapter
     }
   }
 
-  @Deprecated
-  public void setAdapter(@NonNull RecyclerView recyclerView)
-  {
-    recyclerView.setAdapter(this);
-  }
-
   /**
    * It MUST be used on the UI thread.
    *
    * @param position The position which will be selected in the list
    */
+  @UiThread
   public final void setSelectedPositionItem(final int position)
   {
     final int lastSelectedPositionItem = selectedPositionItem;
@@ -331,6 +319,7 @@ public class SmartRecyclerAdapter
    *
    * @param position the position of the item to remove
    */
+  @UiThread
   public final void removeItem(final int position)
   {
     wrappers.remove(position);
@@ -344,6 +333,7 @@ public class SmartRecyclerAdapter
    * Removes every wrapper in the adapter and call notifyItemRangeRemoved
    * It MUST be used on the UI thread.
    */
+  @UiThread
   public final void removeAll()
   {
     final int initialSize = this.wrappers.size();
@@ -360,6 +350,7 @@ public class SmartRecyclerAdapter
    *
    * @param item the wrapper you want to add to the adapter
    */
+  @UiThread
   public final void addItem(SmartRecyclerViewWrapper<?> item)
   {
     addItem(wrappers.size(), item, true);
@@ -373,6 +364,7 @@ public class SmartRecyclerAdapter
    * @param position The index where we want to add the wrapper
    * @param item     the wrapper you want to add to the adapter
    */
+  @UiThread
   public final void addItem(int position, SmartRecyclerViewWrapper<?> item)
   {
     addItem(position, item, true);
@@ -384,6 +376,7 @@ public class SmartRecyclerAdapter
    *
    * @param wrappersToAdd the list of wrappers to add
    */
+  @UiThread
   public final void addAll(List<? extends SmartRecyclerViewWrapper<?>> wrappersToAdd)
   {
     final int initialSize = this.wrappers.size();
@@ -408,6 +401,7 @@ public class SmartRecyclerAdapter
    * @param position      The index where we want to add the list
    * @param wrappersToAdd the list of wrappers to add
    */
+  @UiThread
   public final void addAll(final int position, List<? extends SmartRecyclerViewWrapper<?>> wrappersToAdd)
   {
     int index = position;
@@ -430,11 +424,13 @@ public class SmartRecyclerAdapter
    *
    * @param newWrappers The list of wrappers you want to use for the update
    */
+  @UiThread
   public void updateWrappers(List<? extends SmartRecyclerViewWrapper<?>> newWrappers)
   {
     addAll(newWrappers);
   }
 
+  @UiThread
   public void updateWrappers(List<? extends SmartRecyclerViewWrapper<?>> newWrappers, UpdateType removeType)
   {
     updateWrappers(newWrappers, removeType, ComparisonType.CLASSIC);
@@ -450,6 +446,7 @@ public class SmartRecyclerAdapter
    * @param comparisonType One of {@link ComparisonType#CLASSIC}, {@link ComparisonType#BUSINESS_OBJECT_TYPE}, {@link ComparisonType#WRAPPER_TYPE}
    *                       or {@link ComparisonType#BUSINESS_OBJECT_AND_WRAPPER_TYPE}.
    */
+  @UiThread
   public void updateWrappers(List<? extends SmartRecyclerViewWrapper<?>> newWrappers, UpdateType removeType,
       ComparisonType comparisonType)
   {
@@ -619,7 +616,7 @@ public class SmartRecyclerAdapter
    */
   public final SmartRecyclerViewWrapper<?> getItemWrapper(long businessObjectID)
   {
-    if (this.wrappers != null && this.wrappers.size() > 0 && businessObjectID != -1)
+    if (this.wrappers != null && this.wrappers.isEmpty() == false && businessObjectID != -1)
     {
       for (int index = 0; index < this.wrappers.size(); index++)
       {
@@ -644,7 +641,7 @@ public class SmartRecyclerAdapter
   public final SmartRecyclerViewWrapper<?> getItemWrapper(long businessObjectID, Class<?> businessObjectType,
       Class<?> wrapperType, ComparisonType comparisonType)
   {
-    if (this.wrappers != null && this.wrappers.size() > 0 && businessObjectID != -1)
+    if (this.wrappers != null && this.wrappers.isEmpty() == false && businessObjectID != -1)
     {
       for (int index = 0; index < this.wrappers.size(); index++)
       {
@@ -688,7 +685,7 @@ public class SmartRecyclerAdapter
    */
   public final int getItemPosition(long businessObjectID)
   {
-    if (this.wrappers != null && this.wrappers.size() > 0 && businessObjectID != -1)
+    if (this.wrappers != null && this.wrappers.isEmpty() == false && businessObjectID != -1)
     {
       for (int index = 0; index < this.wrappers.size(); index++)
       {
@@ -713,7 +710,7 @@ public class SmartRecyclerAdapter
   public final int getItemPosition(long businessObjectID, Class<?> businessObjectType, Class<?> wrapperType,
       ComparisonType comparisonType)
   {
-    if (this.wrappers != null && this.wrappers.size() > 0 && businessObjectID != -1)
+    if (this.wrappers != null && this.wrappers.isEmpty() == false && businessObjectID != -1)
     {
       for (int index = 0; index < this.wrappers.size(); index++)
       {
@@ -758,12 +755,12 @@ public class SmartRecyclerAdapter
    */
   public SmartRecyclerViewWrapper<?> set(int position, SmartRecyclerViewWrapper<?> item)
   {
-    if (this.wrappers != null && this.wrappers.size() > 0 && position >= 0 && position <= this.wrappers.size())
+    if (this.wrappers != null && this.wrappers.isEmpty() == false && position >= 0 && position <= this.wrappers.size())
     {
       final int wrapperType = item.getType();
-      if (viewTypeAttributesDictionnary.get(wrapperType) == null)
+      if (viewTypeAttributesDictionary.get(wrapperType) == null)
       {
-        viewTypeAttributesDictionnary.append(wrapperType, item);
+        viewTypeAttributesDictionary.append(wrapperType, item);
       }
       final SmartRecyclerViewWrapper<?> wrapper = this.wrappers.set(position, item);
       if (shouldNotifyBeCalled)
@@ -787,7 +784,7 @@ public class SmartRecyclerAdapter
   public final boolean isObjectIDContainedInList(final List<SmartRecyclerViewWrapper<?>> wrappers,
       long businessObjectID)
   {
-    if (wrappers != null && wrappers.size() > 0 && businessObjectID != -1)
+    if (wrappers != null && wrappers.isEmpty() == false && businessObjectID != -1)
     {
       for (int index = 0; index < wrappers.size(); index++)
       {
@@ -801,9 +798,9 @@ public class SmartRecyclerAdapter
     return false;
   }
 
-  public SparseArray<BusinessViewWrapper<?>> getViewTypeAttributesDictionnary()
+  public SparseArray<SmartRecyclerViewWrapper<?>> getViewTypeAttributesDictionary()
   {
-    return viewTypeAttributesDictionnary;
+    return viewTypeAttributesDictionary;
   }
 
   /**
@@ -817,11 +814,13 @@ public class SmartRecyclerAdapter
   private void addItem(int position, SmartRecyclerViewWrapper<?> item, boolean shouldNotify)
   {
     wrappers.add(position, item);
+
     final int wrapperType = item.getType();
-    if (viewTypeAttributesDictionnary.get(wrapperType) == null)
+    if (viewTypeAttributesDictionary.get(wrapperType) == null)
     {
-      viewTypeAttributesDictionnary.append(wrapperType, item);
+      viewTypeAttributesDictionary.append(wrapperType, item);
     }
+
     if (shouldNotify && shouldNotifyBeCalled)
     {
       notifyItemInserted(position);

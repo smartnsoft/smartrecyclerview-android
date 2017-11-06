@@ -62,9 +62,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.smartnsoft.droid4me.log.Logger;
-import com.smartnsoft.droid4me.log.LoggerFactory;
-
 import com.smartnsoft.recyclerview.adapter.SmartRecyclerAdapter;
 
 /**
@@ -110,10 +107,6 @@ public class SmartReorderRecyclerView
      */
     public abstract void swapElements(int fromIndex, int toIndex);
   }
-
-  public static final Logger log = LoggerFactory.getInstance(SmartReorderRecyclerView.class.getSimpleName());
-
-  private static final boolean LOG_ENABLED = false;
 
   private static final int INVALID_POINTER_ID = -1;
 
@@ -228,10 +221,6 @@ public class SmartReorderRecyclerView
           @Override
           public void onLongPress(MotionEvent event)
           {
-            if (log.isDebugEnabled() == true && LOG_ENABLED == true)
-            {
-              log.debug("Longpress detected");
-            }
             downX = (int) event.getX();
             downY = (int) event.getY();
             activePointerId = event.getPointerId(0);
@@ -243,6 +232,7 @@ public class SmartReorderRecyclerView
             {
               return;
             }
+
             mobileItemId = getChildItemId(selectedView);
             hoverCell = getAndAddHoverView(selectedView);
             updateNeighborViewsForID(mobileItemId);
@@ -256,10 +246,11 @@ public class SmartReorderRecyclerView
       @Override
       public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent event)
       {
-        if (longPressGestureDetector.onTouchEvent(event) == true)
+        if (longPressGestureDetector.onTouchEvent(event))
         {
           return true;
         }
+
         switch (event.getAction())
         {
           case MotionEvent.ACTION_MOVE:
@@ -267,6 +258,7 @@ public class SmartReorderRecyclerView
           default:
             break;
         }
+
         return false;
       }
 
@@ -318,26 +310,20 @@ public class SmartReorderRecyclerView
 
       if (hoverViewTop <= 0 && offset > 0)
       {
-        if (log.isDebugEnabled() == true && LOG_ENABLED == true)
-        {
-          log.debug(String.format("scrolling vertically by %d", -smoothScrollAmountAtEdge));
-        }
         scrollBy(0, -smoothScrollAmountAtEdge);
+
         return true;
       }
 
       if (hoverViewTop + hoverHeight >= height && (offset + extent) < range)
       {
-        if (log.isDebugEnabled() == true && LOG_ENABLED == true)
-        {
-          log.debug(String.format("scrolling vertically by %d", smoothScrollAmountAtEdge));
-        }
         scrollBy(0, smoothScrollAmountAtEdge);
+
         return true;
       }
     }
 
-    if (getLayoutManager().canScrollHorizontally() == true)
+    if (getLayoutManager().canScrollHorizontally())
     {
       int offset = computeHorizontalScrollOffset();
       int width = getWidth();
@@ -348,21 +334,15 @@ public class SmartReorderRecyclerView
 
       if (hoverViewLeft <= 0 && offset > 0)
       {
-        if (log.isDebugEnabled() == true && LOG_ENABLED == true)
-        {
-          log.debug(String.format("scrolling horizontally by %d", -smoothScrollAmountAtEdge));
-        }
         scrollBy(-smoothScrollAmountAtEdge, 0);
+
         return true;
       }
 
       if (hoverViewLeft + hoverWidth >= width && (offset + extent) < range)
       {
-        if (log.isDebugEnabled() == true && LOG_ENABLED == true)
-        {
-          log.debug(String.format("scrolling horizontally by %d", smoothScrollAmountAtEdge));
-        }
         scrollBy(smoothScrollAmountAtEdge, 0);
+
         return true;
       }
     }
@@ -440,16 +420,12 @@ public class SmartReorderRecyclerView
     final Bitmap bitmap = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
     final Canvas canvas = new Canvas(bitmap);
     v.draw(canvas);
+
     return bitmap;
   }
 
   private void handleMotionEvent(MotionEvent event)
   {
-    if (log.isDebugEnabled() == true && LOG_ENABLED == true)
-    {
-      log.debug(String.format(" handleMotionEvent %s", event));
-    }
-
     switch (event.getAction())
     {
       case MotionEvent.ACTION_MOVE:
@@ -463,11 +439,11 @@ public class SmartReorderRecyclerView
 
         lastEventY = (int) event.getY(pointerIndex);
         // lastEventX = (int) event.getX(pointerIndex);
-        int deltaY = lastEventY - downY;
+        final int deltaY = lastEventY - downY;
         // NOTE: DeltaX = 0 because we don't want to be able to move item horizontally
-        int deltaX = 0; // lastEventX - downX;
+        final int deltaX = 0; // lastEventX - downX;
 
-        if (cellIsMobile == true)
+        if (cellIsMobile)
         {
           hoverCellCurrentBounds.offsetTo(hoverCellOriginalBounds.left + deltaX + totalOffsetX,
               hoverCellOriginalBounds.top + deltaY + totalOffsetY);
@@ -526,18 +502,15 @@ public class SmartReorderRecyclerView
       boolean isBelow = (belowView != null) && (deltaYTotal > belowView.getTop());
       boolean isAbove = (aboveView != null) && (deltaYTotal < aboveView.getTop());
 
-      if (log.isDebugEnabled() == true && LOG_ENABLED == true)
+      if (isBelow || isAbove)
       {
-        log.debug(
-            "handleCellSwitch has value: mobileView=" + mobileView + ", isAbove=" + isAbove + ", aboveView=" + aboveView + ", isBelow=" + isBelow + ", belowView=" + belowView);
-      }
-      if (isBelow == true || isAbove == true)
-      {
-        if ((isBelow == true && belowView == null) || (isAbove == true && aboveView == null))
+        if ((isBelow && belowView == null) || (isAbove && aboveView == null))
         {
           updateNeighborViewsForID(mobileItemId);
+
           return;
         }
+
         final int childPosition = getChildAdapterPosition(isBelow ? belowView : aboveView);
         final int originalItem = getChildAdapterPosition(mobileView);
         swapElements(originalItem, childPosition);
@@ -552,7 +525,7 @@ public class SmartReorderRecyclerView
    */
   private void updateNeighborViewsForID(long itemID)
   {
-    int position = getPositionForID(itemID);
+    final int position = getPositionForID(itemID);
     final ReorderAdapter adapter = (ReorderAdapter) getAdapter();
 
     // If the mobile item is the first item, set the above item to invalid ID
@@ -584,10 +557,6 @@ public class SmartReorderRecyclerView
    */
   private void swapElements(int fromIndex, int toIndex)
   {
-    if (log.isDebugEnabled() == true && LOG_ENABLED == true)
-    {
-      log.debug(String.format("Swapping %d with %d", fromIndex, toIndex));
-    }
     final ReorderAdapter adapter = (ReorderAdapter) getAdapter();
     adapter.swapElements(fromIndex, toIndex);
   }
@@ -602,8 +571,9 @@ public class SmartReorderRecyclerView
     {
       return;
     }
+
     final View mobileView = viewHolderForItemId.itemView;
-    if (cellIsMobile == true || usWaitingForScrollFinish == true)
+    if (cellIsMobile || usWaitingForScrollFinish)
     {
       cellIsMobile = false;
       usWaitingForScrollFinish = false;
@@ -654,7 +624,6 @@ public class SmartReorderRecyclerView
     {
       touchEventsCancelled();
     }
-
   }
 
   /**
@@ -667,8 +636,9 @@ public class SmartReorderRecyclerView
     {
       return;
     }
+
     final View mobileView = viewHolderForItemId.itemView;
-    if (cellIsMobile == true)
+    if (cellIsMobile)
     {
       mobileItemId = INVALID_ID;
       mobileView.setVisibility(VISIBLE);

@@ -22,7 +22,7 @@
 
 package com.smartnsoft.recyclerview.attributes;
 
-import android.app.Activity;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.View;
 
@@ -38,15 +38,35 @@ public abstract class SmartRecyclerAttributes<BusinessObjectType>
 
   protected String intentFilterCategory;
 
+  protected long businessObjectIdentifier = -1;
+
+  protected Context context;
+
   public SmartRecyclerAttributes(View view)
   {
     super(view);
-  }
 
-  public abstract void update(Activity activity, BusinessObjectType businessObject, boolean isSelected);
+    this.context = itemView.getContext();
+  }
 
   public void setIntentFilterCategory(String intentFilterCategory)
   {
     this.intentFilterCategory = intentFilterCategory;
+  }
+
+  public void update(BusinessObjectType businessObject, boolean isSelected)
+  {
+    final long businessHashCode = System.identityHashCode(businessObject);
+    if (businessObjectIdentifier != businessHashCode)
+    {
+      onBusinessObjectUpdated(businessObject, isSelected);
+
+      businessObjectIdentifier = businessHashCode;
+    }
+  }
+
+  public void onBusinessObjectUpdated(BusinessObjectType businessObject, boolean isSelected)
+  {
+    // Does not perform any update by default
   }
 }

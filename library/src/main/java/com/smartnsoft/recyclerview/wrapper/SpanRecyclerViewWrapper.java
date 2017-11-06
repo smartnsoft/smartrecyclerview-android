@@ -44,6 +44,7 @@ public abstract class SpanRecyclerViewWrapper<BusinessObjectClass>
       int spanSize)
   {
     super(businessObject, type, layoutResourceId);
+
     this.spanSize = spanSize;
   }
 
