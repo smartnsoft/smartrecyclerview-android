@@ -28,6 +28,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Point;
 import android.os.Build.VERSION_CODES;
 import android.support.annotation.UiThread;
@@ -36,7 +37,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.util.SparseArray;
 import android.view.Display;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -181,13 +181,11 @@ public class SmartRecyclerAdapter
 
   }
 
-  protected final Activity activity;
+  protected final Context context;
 
   protected List<SmartRecyclerViewWrapper<?>> wrappers = new ArrayList<>();
 
   private final SparseArray<SmartRecyclerViewWrapper<?>> viewTypeAttributesDictionary = new SparseArray<>();
-
-  private final LayoutInflater layoutInflater;
 
   private final boolean shouldNotifyBeCalled;
 
@@ -195,16 +193,14 @@ public class SmartRecyclerAdapter
 
   private int selectedPositionItem = -1;
 
-  public SmartRecyclerAdapter(Activity activity, LayoutInflater layoutInflater)
+  public SmartRecyclerAdapter(Context context)
   {
-    this(activity, layoutInflater, false);
+    this(context, false);
   }
 
-  public SmartRecyclerAdapter(Activity activity, LayoutInflater layoutInflater,
-      boolean shouldNotifyChangesAutomatically)
+  public SmartRecyclerAdapter(Context context, boolean shouldNotifyChangesAutomatically)
   {
-    this.activity = activity;
-    this.layoutInflater = layoutInflater;
+    this.context = context;
     this.shouldNotifyBeCalled = shouldNotifyChangesAutomatically;
   }
 
@@ -212,7 +208,7 @@ public class SmartRecyclerAdapter
   public SmartRecyclerAttributes onCreateViewHolder(ViewGroup viewGroup, int viewType)
   {
     final SmartRecyclerViewWrapper wrapper = viewTypeAttributesDictionary.get(viewType);
-    final View view = wrapper.getNewView(viewGroup, activity, layoutInflater);
+    final View view = wrapper.getNewView(viewGroup, context);
     final SmartRecyclerAttributes viewAttributes = wrapper.getViewAttributes(view);
     viewAttributes.setIntentFilterCategory(intentFilterCategory);
 

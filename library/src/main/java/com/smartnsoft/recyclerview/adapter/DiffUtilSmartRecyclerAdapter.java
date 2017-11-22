@@ -2,10 +2,9 @@ package com.smartnsoft.recyclerview.adapter;
 
 import java.util.List;
 
-import android.app.Activity;
+import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
-import android.view.LayoutInflater;
 
 import com.smartnsoft.recyclerview.attributes.SmartRecyclerAttributes;
 import com.smartnsoft.recyclerview.wrapper.DiffUtilSmartRecyclerViewWrapper;
@@ -109,9 +108,9 @@ public abstract class DiffUtilSmartRecyclerAdapter
 
   }
 
-  public DiffUtilSmartRecyclerAdapter(Activity activity, LayoutInflater layoutInflater)
+  public DiffUtilSmartRecyclerAdapter(Context context)
   {
-    super(activity, layoutInflater);
+    super(context);
   }
 
   @Override

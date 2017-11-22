@@ -31,7 +31,7 @@ android
 dependencies
 {
   // Android
-  implementation ("com.android.support:recyclerview-v7:26.1.0")
+  implementation ("com.android.support:recyclerview-v7:27.0.1")
 }
 
 task sourcesJar(type: Jar) {
@@ -137,7 +137,6 @@ bintray
     {
       name = android.defaultConfig.versionName
       desc = "Enhanced RecyclerView with wrappers system"
-      released  = new Date()
       vcsTag = "smartrecyclerview-" + android.defaultConfig.versionName
     }
   }

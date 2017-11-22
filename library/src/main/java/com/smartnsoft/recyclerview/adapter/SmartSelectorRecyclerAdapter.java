@@ -25,8 +25,7 @@ package com.smartnsoft.recyclerview.adapter;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.app.Activity;
-import android.view.LayoutInflater;
+import android.content.Context;
 
 import com.smartnsoft.recyclerview.attributes.SmartRecyclerAttributes;
 import com.smartnsoft.recyclerview.wrapper.SmartRecyclerViewWrapper;
@@ -43,15 +42,14 @@ public class SmartSelectorRecyclerAdapter
 
   private Map<Long, Boolean> selectableMap;
 
-  public SmartSelectorRecyclerAdapter(Activity activity, LayoutInflater layoutInflater)
+  public SmartSelectorRecyclerAdapter(Context context)
   {
-    this(activity, layoutInflater, false);
+    this(context, false);
   }
 
-  public SmartSelectorRecyclerAdapter(Activity activity, LayoutInflater layoutInflater,
-      boolean isMultipleSelectionEnabled)
+  public SmartSelectorRecyclerAdapter(Context context, boolean isMultipleSelectionEnabled)
   {
-    super(activity, layoutInflater);
+    super(context);
 
     this.isMultipleSelectionEnabled = isMultipleSelectionEnabled;
 

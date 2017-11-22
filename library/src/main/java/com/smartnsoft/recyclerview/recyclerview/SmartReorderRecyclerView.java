@@ -44,7 +44,6 @@ import android.animation.ObjectAnimator;
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -58,7 +57,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.GestureDetector;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -84,9 +82,9 @@ public class SmartReorderRecyclerView
       extends SmartRecyclerAdapter
   {
 
-    public ReorderAdapter(Activity activity, LayoutInflater inflater)
+    public ReorderAdapter(Context context)
     {
-      super(activity, inflater);
+      super(context);
     }
 
     /**

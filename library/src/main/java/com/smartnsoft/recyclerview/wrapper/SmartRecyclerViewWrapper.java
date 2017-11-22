@@ -22,7 +22,7 @@
 
 package com.smartnsoft.recyclerview.wrapper;
 
-import android.app.Activity;
+import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -77,15 +77,10 @@ public abstract class SmartRecyclerViewWrapper<BusinessObjectClass>
     return SmartRecyclerViewWrapper.DEFAULT_SPAN_SIZE;
   }
 
-  protected long getId(BusinessObjectClass businessObject)
+  public View getNewView(ViewGroup parent, Context context)
   {
-    return businessObject == null ? 0L : businessObject.hashCode();
-  }
-
-  public View getNewView(ViewGroup parent, Activity activity, LayoutInflater layoutInflater)
-  {
-    final View view = layoutInflater.inflate(layoutResourceId, parent, false);
-    view.setTag(extractNewViewAttributes(activity, view, businessObject));
+    final View view = LayoutInflater.from(context).inflate(layoutResourceId, parent, false);
+    view.setTag(extractNewViewAttributes(context, view, businessObject));
 
     return view;
   }
@@ -95,6 +90,12 @@ public abstract class SmartRecyclerViewWrapper<BusinessObjectClass>
     return (SmartRecyclerAttributes<BusinessObjectClass>) view.getTag();
   }
 
-  protected abstract Object extractNewViewAttributes(Activity activity, View view,
+  protected long getId(BusinessObjectClass businessObject)
+  {
+    return businessObject == null ? 0L : businessObject.hashCode();
+  }
+
+  protected abstract Object extractNewViewAttributes(Context context, View view,
       BusinessObjectClass businessObjectClass);
+
 }

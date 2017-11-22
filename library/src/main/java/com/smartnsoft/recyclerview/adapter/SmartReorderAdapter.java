@@ -24,8 +24,7 @@ package com.smartnsoft.recyclerview.adapter;
 
 import java.util.Collections;
 
-import android.app.Activity;
-import android.view.LayoutInflater;
+import android.content.Context;
 
 import com.smartnsoft.recyclerview.recyclerview.SmartReorderRecyclerView.ReorderAdapter;
 
@@ -37,9 +36,9 @@ public class SmartReorderAdapter
     extends ReorderAdapter
 {
 
-  public SmartReorderAdapter(Activity activity, LayoutInflater inflater)
+  public SmartReorderAdapter(Context context)
   {
-    super(activity, inflater);
+    super(context);
   }
 
   @Override
