@@ -23,4 +23,10 @@ public abstract class DiffUtilSmartRecyclerViewWrapper<BusinessObjectClass>
     super(businessObject, type, layoutResourceId);
   }
 
+  @Override
+  public long getId()
+  {
+    throw new UnsupportedOperationException("You have to override the 'getId' method in order to return the unique identifier the of the item in the adapter");
+  }
+
 }

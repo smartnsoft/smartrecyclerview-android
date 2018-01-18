@@ -104,6 +104,7 @@ public class SmartReorderRecyclerView
      * @param toIndex   the index
      */
     public abstract void swapElements(int fromIndex, int toIndex);
+
   }
 
   private static final int INVALID_POINTER_ID = -1;
@@ -120,6 +121,7 @@ public class SmartReorderRecyclerView
    */
   private final static TypeEvaluator<Rect> sBoundEvaluator = new TypeEvaluator<Rect>()
   {
+
     @Override
     public Rect evaluate(float fraction, Rect startValue, Rect endValue)
     {
@@ -132,6 +134,7 @@ public class SmartReorderRecyclerView
     {
       return (int) (start + fraction * (end - start));
     }
+
   };
 
   private int activePointerId = INVALID_POINTER_ID;
@@ -189,6 +192,7 @@ public class SmartReorderRecyclerView
     {
       throw new IllegalStateException("ReorderRecyclerView only works with ReorderAdapter and must have stable ids!");
     }
+
     super.setAdapter(adapter);
   }
 
@@ -654,4 +658,5 @@ public class SmartReorderRecyclerView
   {
     handleMobileCellScroll(hoverCellCurrentBounds);
   }
+
 }

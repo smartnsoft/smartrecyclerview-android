@@ -58,12 +58,7 @@ public abstract class DiffUtilSmartRecyclerAdapter
       final SmartRecyclerViewWrapper<?> oldSmartRecyclerViewWrapper = oldWrappers.get(oldItemPosition);
       final SmartRecyclerViewWrapper<?> newSmartRecyclerViewWrapper = newWrappers.get(newItemPosition);
 
-      if ((oldSmartRecyclerViewWrapper instanceof SmartDiffUtil) == false || (newSmartRecyclerViewWrapper instanceof SmartDiffUtil) == false)
-      {
-        throw new IllegalArgumentException("Wrappers have to implement the IDiffUtil interface");
-      }
-
-      return ((SmartDiffUtil) oldSmartRecyclerViewWrapper).getDiffUtilId() == ((SmartDiffUtil) newSmartRecyclerViewWrapper).getDiffUtilId();
+      return oldSmartRecyclerViewWrapper.getId() == newSmartRecyclerViewWrapper.getId();
     }
 
     @Override

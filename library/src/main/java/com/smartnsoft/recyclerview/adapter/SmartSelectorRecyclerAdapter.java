@@ -70,6 +70,7 @@ public class SmartSelectorRecyclerAdapter
       smartRecyclerAttributes.update(businessObject,
           selectableMap.containsKey(wrapper.getId()) && selectableMap.get(wrapper.getId()));
     }
+
   }
 
   public final void toggleItemSelectedState(long businessObjectId)
@@ -89,4 +90,5 @@ public class SmartSelectorRecyclerAdapter
     selectableMap.put(businessObjectId, isSelected);
     notifyItemChanged(getItemPosition(businessObjectId));
   }
+
 }

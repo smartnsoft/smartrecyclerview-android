@@ -69,4 +69,5 @@ public abstract class SmartRecyclerAttributes<BusinessObjectType>
   {
     // Does not perform any update by default
   }
+
 }
