@@ -21,6 +21,13 @@ allprojects
     jcenter()
     google()
   }
+
+  ext
+  {
+    appcompat_support_library_version = '27.0.2'
+    compileSdkVersion = 27
+    minSdkVersion = 14
+  }
 }
 
 task clean(type: Delete) {
