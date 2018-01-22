@@ -1,5 +1,5 @@
 <resources>
   <string name="app_name">SmartRecyclerViewSample</string>
   <string name="title_activity_main">MainActivity</string>
-  <string name="action_settings">Settings</string>
+  <string name="image_description">Probably a cheese image</string>
 </resources>
