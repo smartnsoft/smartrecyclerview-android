@@ -7,7 +7,6 @@ import com.smartnsoft.smartrecyclerviewsample.R;
 import com.smartnsoft.smartrecyclerviewsample.bo.Person;
 
 /**
- * The class description here.
  *
  * @author Adrien Vitti
  * @since 2018.01.24

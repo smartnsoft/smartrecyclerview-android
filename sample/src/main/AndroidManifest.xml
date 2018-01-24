@@ -33,6 +33,10 @@
       android:name=".DataBindedRecyclerActivity"
     />
 
+    <activity
+      android:name=".DiffUtilRecyclerActivity"
+    />
+
   </application>
 
 </manifest>

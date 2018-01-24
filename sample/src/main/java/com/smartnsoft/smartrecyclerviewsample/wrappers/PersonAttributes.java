@@ -6,7 +6,7 @@ import com.smartnsoft.smartrecyclerviewsample.BR;
 import com.smartnsoft.smartrecyclerviewsample.bo.Person;
 
 /**
- * The class description here.
+ * A simple Attributes which uses Android Databind with a Person business object
  *
  * @author Adrien Vitti
  * @since 2018.01.24

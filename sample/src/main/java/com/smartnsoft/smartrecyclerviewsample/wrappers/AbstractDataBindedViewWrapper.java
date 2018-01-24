@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * The class description here.
+ * A Wrapper which should be used with Android Databinding
  *
  * @author Adrien Vitti
  * @since 2018.01.24

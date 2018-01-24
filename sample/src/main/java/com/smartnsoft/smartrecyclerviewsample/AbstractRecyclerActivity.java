@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.LayoutManager;
 
 import com.smartnsoft.recyclerview.adapter.SmartRecyclerAdapter;
 import com.smartnsoft.recyclerview.wrapper.SmartRecyclerViewWrapper;
@@ -18,7 +19,6 @@ import com.smartnsoft.smartrecyclerviewsample.wrappers.SimpleImageWrapper;
 import com.smartnsoft.smartrecyclerviewsample.wrappers.SimpleTextWrapper;
 
 /**
- * The class description here.
  *
  * @author Adrien Vitti
  * @since 2018.01.24
@@ -33,7 +33,7 @@ public abstract class AbstractRecyclerActivity
   protected SmartRecyclerAdapter smartRecyclerAdapter;
 
   @Override
-  protected final void onCreate(Bundle savedInstanceState)
+  protected void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
     setContentView(getLayoutId());
@@ -47,7 +47,7 @@ public abstract class AbstractRecyclerActivity
   protected void setupRecyclerView()
   {
     recyclerView.setHasFixedSize(true);
-    recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+    recyclerView.setLayoutManager(getLayoutManager());
     recyclerView.setItemAnimator(new DefaultItemAnimator());
 
     smartRecyclerAdapter = createRecyclerAdapter();
@@ -56,6 +56,12 @@ public abstract class AbstractRecyclerActivity
     smartRecyclerAdapter.setIntentFilterCategory(intentFilterCategory);
 
     recyclerView.setAdapter(smartRecyclerAdapter);
+  }
+
+  @NonNull
+  protected LayoutManager getLayoutManager()
+  {
+    return new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
   }
 
   abstract SmartRecyclerAdapter createRecyclerAdapter();

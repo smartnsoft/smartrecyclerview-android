@@ -6,7 +6,7 @@ import android.view.View;
 import com.smartnsoft.smartrecyclerviewsample.wrappers.WrapperType.WrapperTypeIdentifier;
 
 /**
- * The class description here.
+ * This class goal is to force the IntDef WrapperIdentifier when creating a new Wrapper
  *
  * @author Adrien Vitti
  * @since 2018.01.22

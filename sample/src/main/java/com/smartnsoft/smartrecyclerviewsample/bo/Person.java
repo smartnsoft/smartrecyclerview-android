@@ -1,8 +1,6 @@
 package com.smartnsoft.smartrecyclerviewsample.bo;
 
 /**
- * The class description here.
- *
  * @author Adrien Vitti
  * @since 2018.01.24
  */

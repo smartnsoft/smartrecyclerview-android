@@ -12,7 +12,7 @@ import com.smartnsoft.smartrecyclerviewsample.wrappers.PersonWrapper;
 import com.smartnsoft.smartrecyclerviewsample.wrappers.SimpleTextWrapper;
 
 /**
- * The class description here.
+ * An activity using a SmartRecyclerAdapter and Wrappers with Android Databind
  *
  * @author Adrien Vitti
  * @since 2018.01.24

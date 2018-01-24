@@ -35,7 +35,6 @@ public class MainActivity
 
     reorderingRecyclerButton.setOnClickListener(this);
     diffutilRecyclerButton.setOnClickListener(this);
-    diffutilRecyclerButton.setVisibility(View.GONE);
     simpleRecyclerButton.setOnClickListener(this);
     databindedRecyclerButton.setOnClickListener(this);
   }
@@ -49,7 +48,7 @@ public class MainActivity
     }
     else if (view == diffutilRecyclerButton)
     {
-      // TODO
+      startActivity(new Intent(MainActivity.this, DiffUtilRecyclerActivity.class));
     }
     else if (view == simpleRecyclerButton)
     {

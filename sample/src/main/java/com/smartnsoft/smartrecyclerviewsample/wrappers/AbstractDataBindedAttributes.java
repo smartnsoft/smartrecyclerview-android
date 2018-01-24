@@ -10,7 +10,7 @@ import com.smartnsoft.smartrecyclerviewsample.BR;
 import com.smartnsoft.smartrecyclerviewsample.databinding.PersonItemBinding;
 
 /**
- * The class description here.
+ * An Attributes which can be used with Android Databinding
  *
  * @author Adrien Vitti
  * @since 2018.01.24
