@@ -20,6 +20,19 @@
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
+
+    <activity
+      android:name=".SimpleRecyclerActivity"
+    />
+
+    <activity
+      android:name=".ReorderedRecyclerActivity"
+    />
+
+    <activity
+      android:name=".DataBindedRecyclerActivity"
+    />
+
   </application>
 
 </manifest>

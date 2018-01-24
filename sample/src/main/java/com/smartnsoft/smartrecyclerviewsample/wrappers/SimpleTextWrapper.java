@@ -13,7 +13,7 @@ import com.smartnsoft.smartrecyclerviewsample.R;
  */
 
 public final class SimpleTextWrapper
-    extends SmartRecyclerViewWrapper<String>
+    extends AbstractSmartRecyclerViewWrapper<String>
 {
 
   public SimpleTextWrapper(String businessObject)

@@ -14,7 +14,7 @@ import com.smartnsoft.smartrecyclerviewsample.R;
  */
 
 public final class SimpleImageWrapper
-    extends SmartRecyclerViewWrapper<Integer>
+    extends AbstractSmartRecyclerViewWrapper<Integer>
 {
 
   public SimpleImageWrapper(@DrawableRes Integer businessObject)

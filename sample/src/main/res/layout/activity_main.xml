@@ -21,6 +21,41 @@
 
   </android.support.design.widget.AppBarLayout>
 
-  <include layout="@layout/content_main"/>
+  <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+  >
+
+    <Button
+      android:id="@+id/simpleRecyclerButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/simple_recycler_button_text"
+    />
+
+    <Button
+      android:id="@+id/diffutilRecyclerButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/diffutil_recycler_button_text"
+    />
+
+    <Button
+      android:id="@+id/databindedRecyclerButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/databinded_recycler_button_text"
+    />
+
+    <Button
+      android:id="@+id/reorderingRecyclerButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/reordering_recycler_button_text"
+    />
+
+  </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

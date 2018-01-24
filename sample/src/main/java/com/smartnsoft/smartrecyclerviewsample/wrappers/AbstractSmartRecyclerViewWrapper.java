@@ -1,5 +1,8 @@
 package com.smartnsoft.smartrecyclerviewsample.wrappers;
 
+import android.content.Context;
+import android.view.View;
+
 import com.smartnsoft.smartrecyclerviewsample.wrappers.WrapperType.WrapperTypeIdentifier;
 
 /**
@@ -9,11 +12,11 @@ import com.smartnsoft.smartrecyclerviewsample.wrappers.WrapperType.WrapperTypeId
  * @since 2018.01.22
  */
 
-abstract class SmartRecyclerViewWrapper<T>
+abstract class AbstractSmartRecyclerViewWrapper<T>
     extends com.smartnsoft.recyclerview.wrapper.SmartRecyclerViewWrapper<T>
 {
 
-  SmartRecyclerViewWrapper(T businessObject, @WrapperTypeIdentifier int type, int layoutResourceId)
+  AbstractSmartRecyclerViewWrapper(T businessObject, @WrapperTypeIdentifier int type, int layoutResourceId)
   {
     super(businessObject, type, layoutResourceId);
   }
