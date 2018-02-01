@@ -30,4 +30,4 @@ The Android Team @Smart&Soft, software agency http://www.smartnsoft.com
 
 ## License
 
-droid4me.log is available under the MIT license. See the LICENSE file for more info.
+smartrecyclerview-android is available under the MIT license. See the LICENSE file for more info.
