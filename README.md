@@ -1,6 +1,6 @@
 # SmartRecyclerView
 
-Enhanced RecyclerView to be usable with droid4me
+Enhanced RecyclerView
 
 ## Usage
 
@@ -11,7 +11,7 @@ Library releases are available on JCenter
 **Gradle**
 
 ```groovy
-compile 'com.smartnsoft:recyclerview:1.4'
+compile 'com.smartnsoft:recyclerview:1.5'
 ```
 
 **Maven**
@@ -20,7 +20,7 @@ compile 'com.smartnsoft:recyclerview:1.4'
 <dependency>
   <groupId>com.smartnsoft</groupId>
   <artifactId>recyclerview</artifactId>
-  <version>1.4</version>
+  <version>1.5</version>
   <type>aar</type>
 </dependency>
 ```
