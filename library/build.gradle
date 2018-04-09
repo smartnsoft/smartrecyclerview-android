@@ -12,8 +12,8 @@ android
     minSdkVersion 14
     targetSdkVersion 27
 
-    versionCode 13
-    versionName "1.5"
+    versionCode 14
+    versionName "1.5.1"
   }
 
   buildTypes
@@ -30,7 +30,7 @@ android
 dependencies
 {
   // Android
-  implementation ("com.android.support:recyclerview-v7:27.0.2")
+  implementation ("com.android.support:recyclerview-v7:27.1.1")
 }
 
 task sourcesJar(type: Jar) {

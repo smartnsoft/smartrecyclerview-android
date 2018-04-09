@@ -296,7 +296,7 @@ public class SmartRecyclerAdapter
 
   public int getSpanSizeForPosition(int position)
   {
-    if (position < wrappers.size())
+    if (position >= 0 && position < wrappers.size())
     {
       return wrappers.get(position).getSpanSize();
     }
