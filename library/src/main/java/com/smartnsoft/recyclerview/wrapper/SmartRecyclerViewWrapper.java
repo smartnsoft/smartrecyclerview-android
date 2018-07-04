@@ -43,10 +43,10 @@ public abstract class SmartRecyclerViewWrapper<BusinessObjectClass>
 
   private static final int DEFAULT_SPAN_SIZE = 1;
 
-  private BusinessObjectClass businessObject;
+  protected BusinessObjectClass businessObject;
 
   @LayoutRes
-  private int layoutResourceId;
+  protected int layoutResourceId;
 
   private int type;
 

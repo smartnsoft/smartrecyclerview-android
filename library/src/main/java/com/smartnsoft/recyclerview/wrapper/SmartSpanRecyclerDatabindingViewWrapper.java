@@ -27,21 +27,21 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
 /**
- * A {@link SmartRecyclerViewWrapper} that can be used with a {@link GridLayoutManager} or a {@link StaggeredGridLayoutManager}.
+ * A {@link SmartRecyclerDatabindingViewWrapper} that can be used with a {@link GridLayoutManager} or a {@link StaggeredGridLayoutManager}.
  *
  * @param <BusinessObjectClass> the business object class which is represented by the current wrapper
- * @author Jocelyn Girard, Ludovic Roland, Adrien Vitti
+ * @author Ludovic Roland
  * @see SmartRecyclerViewWrapper
- * @since 2014.04.16
+ * @since 2018.07.04
  */
-public abstract class SpanRecyclerViewWrapper<BusinessObjectClass>
-    extends SmartRecyclerViewWrapper<BusinessObjectClass>
+public abstract class SmartSpanRecyclerDatabindingViewWrapper<BusinessObjectClass>
+    extends SmartRecyclerDatabindingViewWrapper<BusinessObjectClass>
 {
 
   private final int spanSize;
 
-  protected SpanRecyclerViewWrapper(BusinessObjectClass businessObject, int type, @LayoutRes int layoutResourceId,
-      int spanSize)
+  protected SmartSpanRecyclerDatabindingViewWrapper(BusinessObjectClass businessObject, int type,
+      @LayoutRes int layoutResourceId, int spanSize)
   {
     super(businessObject, type, layoutResourceId);
 

@@ -8,12 +8,12 @@ import android.support.v7.util.DiffUtil;
 
 import com.smartnsoft.recyclerview.attributes.SmartRecyclerAttributes;
 import com.smartnsoft.recyclerview.wrapper.DiffUtilSmartRecyclerViewWrapper;
-import com.smartnsoft.recyclerview.wrapper.DiffUtilSpanRecyclerViewWrapper;
+import com.smartnsoft.recyclerview.wrapper.DiffUtilSmartSpanRecyclerViewWrapper;
 import com.smartnsoft.recyclerview.wrapper.SmartDiffUtil;
 import com.smartnsoft.recyclerview.wrapper.SmartRecyclerViewWrapper;
 
 /**
- * A {@link SmartRecyclerAdapter} adapter, which works closely with the {@link DiffUtilSmartRecyclerViewWrapper} and the {@link DiffUtilSpanRecyclerViewWrapper} classes.
+ * A {@link SmartRecyclerAdapter} adapter, which works closely with the {@link DiffUtilSmartRecyclerViewWrapper} and the {@link DiffUtilSmartSpanRecyclerViewWrapper} classes.
  *
  * @author Ludovic Roland
  * @see SmartRecyclerAdapter

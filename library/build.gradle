@@ -12,8 +12,13 @@ android
     minSdkVersion 14
     targetSdkVersion 27
 
-    versionCode 14
-    versionName "1.5.1"
+    versionCode 15
+    versionName "1.6.0-SNAPSHOT"
+  }
+
+  dataBinding
+  {
+    enabled = true
   }
 
   buildTypes
