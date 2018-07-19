@@ -24,6 +24,7 @@ package com.smartnsoft.recyclerview.attributes;
 
 import android.content.Context;
 import android.databinding.ViewDataBinding;
+import android.support.annotation.CallSuper;
 
 /**
  * A {@link SmartRecyclerAttributes} that uses databinding.
@@ -50,5 +51,21 @@ public abstract class SmartRecyclerDatabindingAttributes<BusinessObjectType>
     this.viewDataBinding = viewDataBinding;
     this.context = itemView.getContext();
   }
+
+  @CallSuper
+  @Override
+  public void update(BusinessObjectType businessObject, boolean isSelected)
+  {
+    final long businessHashCode = System.identityHashCode(businessObject);
+    if (businessObjectIdentifier != businessHashCode)
+    {
+      bindViewModel();
+      onBusinessObjectUpdated(businessObject, isSelected);
+
+      businessObjectIdentifier = businessHashCode;
+    }
+  }
+
+  protected abstract void bindViewModel();
 
 }
