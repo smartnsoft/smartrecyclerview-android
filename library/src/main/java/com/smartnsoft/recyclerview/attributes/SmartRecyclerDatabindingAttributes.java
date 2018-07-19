@@ -22,7 +22,6 @@
 
 package com.smartnsoft.recyclerview.attributes;
 
-import android.content.Context;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.CallSuper;
 
@@ -35,12 +34,6 @@ import android.support.annotation.CallSuper;
 public abstract class SmartRecyclerDatabindingAttributes<BusinessObjectType>
     extends SmartRecyclerAttributes<BusinessObjectType>
 {
-
-  protected String intentFilterCategory;
-
-  protected long businessObjectIdentifier = -1;
-
-  protected Context context;
 
   protected ViewDataBinding viewDataBinding;
 
