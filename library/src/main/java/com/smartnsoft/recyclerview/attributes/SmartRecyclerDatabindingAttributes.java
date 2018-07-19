@@ -59,13 +59,13 @@ public abstract class SmartRecyclerDatabindingAttributes<BusinessObjectType>
     final long businessHashCode = System.identityHashCode(businessObject);
     if (businessObjectIdentifier != businessHashCode)
     {
-      bindViewModel();
+      bindViewModel(businessObject);
       onBusinessObjectUpdated(businessObject, isSelected);
 
       businessObjectIdentifier = businessHashCode;
     }
   }
 
-  protected abstract void bindViewModel();
+  protected abstract void bindViewModel(BusinessObjectType businessObject);
 
 }
