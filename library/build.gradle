@@ -30,7 +30,7 @@ android
 dependencies
 {
   // Android
-  implementation ("com.android.support:recyclerview-v7:27.1.1")
+  implementation ("com.android.support:recyclerview-v7:${appcompat_support_library_version}")
 }
 
 task sourcesJar(type: Jar) {
