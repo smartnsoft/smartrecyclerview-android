@@ -20,35 +20,45 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.smartnsoft.recyclerview.wrapper;
+package com.smartnsoft.recyclerview.attributes;
 
-import android.support.annotation.LayoutRes;
-
-import com.smartnsoft.recyclerview.adapter.DiffUtilSmartRecyclerAdapter;
+import android.databinding.ViewDataBinding;
+import android.support.annotation.CallSuper;
 
 /**
- * A {@link SpanRecyclerViewWrapper} that implements the {@link SmartDiffUtil} interface in order to be used with the {@link DiffUtilSmartRecyclerAdapter}.
+ * A {@link SmartRecyclerAttributes} that uses databinding.
  *
- * @param <BusinessObjectClass> the business object class which is represented by the current wrapper
  * @author Ludovic Roland
- * @see SpanRecyclerViewWrapper
- * @since 2017.09.27
+ * @since 2018.07.04
  */
-public abstract class DiffUtilSpanRecyclerViewWrapper<BusinessObjectClass>
-    extends SpanRecyclerViewWrapper<BusinessObjectClass>
-    implements SmartDiffUtil
+public abstract class SmartRecyclerDatabindingAttributes<BusinessObjectType>
+    extends SmartRecyclerAttributes<BusinessObjectType>
 {
 
-  protected DiffUtilSpanRecyclerViewWrapper(BusinessObjectClass businessObject, int type,
-      @LayoutRes int layoutResourceId, int spanSize)
+  protected ViewDataBinding viewDataBinding;
+
+  public SmartRecyclerDatabindingAttributes(ViewDataBinding viewDataBinding)
   {
-    super(businessObject, type, layoutResourceId, spanSize);
+    super(viewDataBinding.getRoot());
+
+    this.viewDataBinding = viewDataBinding;
+    this.context = itemView.getContext();
   }
 
+  @CallSuper
   @Override
-  public long getId()
+  public void update(BusinessObjectType businessObject, boolean isSelected)
   {
-    throw new UnsupportedOperationException("You have to override the 'getId' method in order to return the unique identifier the of the item in the adapter");
+    final long businessHashCode = System.identityHashCode(businessObject);
+    if (businessObjectIdentifier != businessHashCode)
+    {
+      bindViewModel(businessObject);
+      onBusinessObjectUpdated(businessObject, isSelected);
+
+      businessObjectIdentifier = businessHashCode;
+    }
   }
+
+  protected abstract void bindViewModel(BusinessObjectType businessObject);
 
 }

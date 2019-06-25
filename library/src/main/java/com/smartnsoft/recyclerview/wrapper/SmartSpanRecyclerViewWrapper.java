@@ -34,13 +34,13 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
  * @see SmartRecyclerViewWrapper
  * @since 2014.04.16
  */
-public abstract class SpanRecyclerViewWrapper<BusinessObjectClass>
+public abstract class SmartSpanRecyclerViewWrapper<BusinessObjectClass>
     extends SmartRecyclerViewWrapper<BusinessObjectClass>
 {
 
   private final int spanSize;
 
-  protected SpanRecyclerViewWrapper(BusinessObjectClass businessObject, int type, @LayoutRes int layoutResourceId,
+  protected SmartSpanRecyclerViewWrapper(BusinessObjectClass businessObject, int type, @LayoutRes int layoutResourceId,
       int spanSize)
   {
     super(businessObject, type, layoutResourceId);
