@@ -6,6 +6,8 @@
   <string name="diffutil_recycler_button_text">Recycler with diffUtil</string>
   <string name="databinded_recycler_button_text">Recycler with databinding</string>
   <string name="reordering_recycler_button_text">Recycler with reordering</string>
+  <string name="shuffle">Shuffle</string>
+  <string name="work_in_progress">This feature has been disabled because it\'s a work in progress…</string>
 
   <string-array name="personNames">
     <item>Enriqueta Moose</item>
@@ -18,11 +20,13 @@
     <item>Lynelle Heckart</item>
     <item>Dolly Line</item>
     <item>Ellyn Pilkenton</item>
+    <item>Adrien Vitti</item>
     <item>Damian Rines</item>
     <item>Eva Killen</item>
     <item>Chiquita Moris</item>
     <item>Tyree Hartin</item>
     <item>Marylynn Engler</item>
+    <item>Ludovic Roland</item>
     <item>Petrina Hicklin</item>
     <item>Johana Pavao</item>
     <item>Nathanial Steed</item>
@@ -34,6 +38,7 @@
     <item>Jasmine Lemarr</item>
     <item>Magnolia Kirch</item>
     <item>Alvaro Kinnear</item>
+    <item>Anthony Msihid</item>
     <item>Shantay Teneyck</item>
     <item>Julian Luebbers</item>
     <item>Wilfredo Blazier</item>
@@ -44,6 +49,7 @@
     <item>Brice Ragland</item>
     <item>Claude Rawley</item>
     <item>Cornelius Sobolik</item>
+    <item>David Fournier</item>
     <item>Laurette Galarza</item>
     <item>Alesha Arizmendi</item>
     <item>Kerstin Caraway</item>

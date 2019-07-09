@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 public class MainActivity
     extends AppCompatActivity
@@ -44,7 +45,8 @@ public class MainActivity
   {
     if (view == reorderingRecyclerButton)
     {
-      startActivity(new Intent(MainActivity.this, ReorderedRecyclerActivity.class));
+      Toast.makeText(this, R.string.work_in_progress, Toast.LENGTH_SHORT).show();
+      // startActivity(new Intent(MainActivity.this, ReorderedRecyclerActivity.class));
     }
     else if (view == diffutilRecyclerButton)
     {

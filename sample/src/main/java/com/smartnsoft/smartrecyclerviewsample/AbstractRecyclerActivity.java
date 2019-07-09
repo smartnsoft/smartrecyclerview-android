@@ -42,7 +42,7 @@ public abstract class AbstractRecyclerActivity
   }
 
   @LayoutRes
-  abstract int getLayoutId();
+  protected abstract int getLayoutId();
 
   protected void setupRecyclerView()
   {
@@ -64,7 +64,7 @@ public abstract class AbstractRecyclerActivity
     return new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
   }
 
-  abstract SmartRecyclerAdapter createRecyclerAdapter();
+  protected abstract SmartRecyclerAdapter createRecyclerAdapter();
 
   @Override
   public final void onResume()
@@ -77,8 +77,7 @@ public abstract class AbstractRecyclerActivity
   {
     if (smartRecyclerAdapter.getItemCount() == 0)
     {
-      final List<SmartRecyclerViewWrapper<?>> wrappers = createWrappers();
-      smartRecyclerAdapter.addAll(wrappers);
+      smartRecyclerAdapter.addAll(createWrappers());
     }
   }
 

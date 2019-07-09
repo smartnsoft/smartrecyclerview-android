@@ -21,13 +21,16 @@ import com.smartnsoft.smartrecyclerviewsample.wrappers.TextDiffUtilWrapper;
 
 /**
  * An activity containing a RecyclerView with a DiffUtilSmartRecyclerAdapter
+ *
+ * @author Adrien Vitti
+ * @since 2018.01.24
  */
 public class DiffUtilRecyclerActivity
     extends SimpleRecyclerActivity
 {
 
   @Override
-  SmartRecyclerAdapter createRecyclerAdapter()
+  protected SmartRecyclerAdapter createRecyclerAdapter()
   {
     return new SampleDiffUtilSmartRecyclerAdapter(DiffUtilRecyclerActivity.this);
   }
@@ -43,8 +46,7 @@ public class DiffUtilRecyclerActivity
       @Override
       public void onClick(View v)
       {
-        final List<SmartRecyclerViewWrapper<?>> wrappers = createWrappers();
-        ((DiffUtilSmartRecyclerAdapter) smartRecyclerAdapter).setWrappersForDiffUtil(wrappers);
+        ((DiffUtilSmartRecyclerAdapter) smartRecyclerAdapter).setWrappersForDiffUtil(createWrappers());
       }
     });
   }
@@ -54,21 +56,10 @@ public class DiffUtilRecyclerActivity
   protected List<SmartRecyclerViewWrapper<?>> createWrappers()
   {
     final List<SmartRecyclerViewWrapper<?>> wrappers = new ArrayList<>();
-    final String[] personNames = getResources().getStringArray(R.array.personNames);
-    final List<String> personList = Arrays.asList(personNames);
+    final List<String> personList = Arrays.asList(getResources().getStringArray(R.array.personNames));
 
-    final int maxName;
-    if (smartRecyclerAdapter.getItemCount() != 0)
-    {
-      // This code will only be used via the shuffle button
-      Collections.shuffle(personList);
-      maxName = (int) Math.max(10, personList.size() - Math.random() * personList.size());
-    }
-    else
-    {
-      // Standard way to fill the list, will only be done once in this example
-      maxName = personList.size();
-    }
+    Collections.shuffle(personList);
+    final int maxName = (int) Math.max(30, personList.size() - Math.random() * personList.size());
 
     for (int index = 0; index < maxName; index++)
     {
