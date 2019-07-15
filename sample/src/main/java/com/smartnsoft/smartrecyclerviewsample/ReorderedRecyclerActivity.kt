@@ -3,7 +3,7 @@ package com.smartnsoft.smartrecyclerviewsample
 import com.smartnsoft.recyclerview.adapter.SmartRecyclerAdapter
 
 /**
- * An activity containing a simple way to use a ReorderRecyclerView with a SmartReorderAdapter
+ * An activity containing a simple way to use a ReorderRecyclerView
  *
  * @author Adrien Vitti
  * @since 2018.01.24
