@@ -19,7 +19,6 @@ import com.smartnsoft.smartrecyclerviewsample.wrappers.SimpleImageWrapper;
 import com.smartnsoft.smartrecyclerviewsample.wrappers.SimpleTextWrapper;
 
 /**
- *
  * @author Adrien Vitti
  * @since 2018.01.24
  */

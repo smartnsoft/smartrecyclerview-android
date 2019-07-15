@@ -769,6 +769,24 @@ public class SmartRecyclerAdapter
     return null;
   }
 
+  public void moveWrapper(int fromIndex, int toIndex)
+  {
+    if (fromIndex > 0 && fromIndex < wrappers.size()
+        && toIndex > 0 && toIndex < wrappers.size())
+    {
+      final SmartRecyclerViewWrapper<?> wrapperToMove = wrappers.get(fromIndex);
+      if (wrapperToMove != null)
+      {
+        wrappers.remove(fromIndex);
+        wrappers.add(toIndex, wrapperToMove);
+        if (shouldNotifyBeCalled)
+        {
+          notifyItemMoved(fromIndex, toIndex);
+        }
+      }
+    }
+  }
+
   /**
    * Allows you to know if the given wrapper list contains a specific id.
    * The identifier must be unique, for example the object's hashcode.
