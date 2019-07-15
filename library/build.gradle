@@ -13,7 +13,7 @@ android
     targetSdkVersion 27
 
     versionCode 15
-    versionName "1.6.0.003-SNAPSHOT"
+    versionName "1.6.0"
   }
 
   dataBinding
