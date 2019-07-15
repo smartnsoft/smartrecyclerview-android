@@ -1,4 +1,5 @@
 apply plugin: "com.android.library"
+apply plugin: 'kotlin-android'
 apply plugin: "com.jfrog.bintray"
 apply plugin: "maven"
 apply plugin: "maven-publish"
@@ -26,16 +27,23 @@ android
     release
     {
       minifyEnabled false
-      zipAlignEnabled  true
+      zipAlignEnabled true
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
+
+  compileOptions {
+    kotlinOptions.freeCompilerArgs += ['-module-name', "$GROUP_ID.$ARTIFACT_ID"]
+  }
+
 }
 
 dependencies
 {
+  implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version")
+
   // Android
-  implementation ("com.android.support:recyclerview-v7:${appcompat_support_library_version}")
+  implementation("com.android.support:recyclerview-v7:${appcompat_support_library_version}")
 }
 
 task sourcesJar(type: Jar) {
@@ -44,8 +52,8 @@ task sourcesJar(type: Jar) {
 }
 
 task javadoc(type: Javadoc) {
-  title = "SmartRecyclerView API"
-  description "Javadoc for the SmartRecyclerView"
+  title = project.LIBRARY_NAME + " API"
+  description "Javadoc for the " + project.LIBRARY_NAME
   source = android.sourceSets.main.java.srcDirs
 
   options.charSet = "UTF-8"
@@ -88,15 +96,15 @@ publishing
     {
       artifact sourcesJar
       artifact javadocJar
-      groupId "com.smartnsoft"
-      artifactId "recyclerview"
+      groupId project.GROUP_ID
+      artifactId project.ARTIFACT_ID
       version android.defaultConfig.versionName
 
       pom.withXml
       {
         def root = asNode()
         root.appendNode("description", "Enhanced RecyclerView with wrappers system")
-        root.appendNode("name", "recyclerview")
+        root.appendNode("name", project.ARTIFACT_ID)
         root.appendNode("url", "https://github.com/smartnsoft/smartrecyclerview-android")
         root.children().last() + pomConfig
       }
@@ -128,7 +136,7 @@ bintray
   pkg
   {
     repo = "maven"
-    name = "recyclerview"
+    name = project.ARTIFACT_ID
     userOrg = "smartnsoft"
     licenses = ["MIT"]
     vcsUrl = "https://github.com/smartnsoft/smartrecyclerview-android.git"
@@ -156,14 +164,14 @@ uploadArchives
 
       snapshotRepository(url: nexusSnapshotUrl)
       {
-        authentication(userName: nexusUsername, password: nexusPassword)
+        authentication(userName: findProperty("nexusUsername") ?: "", password: findProperty("nexusPassword") ?: "")
       }
 
       pom.project
       {
-        name "recyclerview"
-        groupId "com.smartnsoft"
-        artifactId "recyclerview"
+        name project.ARTIFACT_ID
+        groupId project.GROUP_ID
+        artifactId project.ARTIFACT_ID
         version android.defaultConfig.versionName
         packaging "aar"
       }
