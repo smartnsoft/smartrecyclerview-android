@@ -1,0 +1,69 @@
+<resources>
+  <string name="app_name">SmartRecyclerViewSample</string>
+  <string name="title_activity_main">MainActivity</string>
+  <string name="image_description">Probably a cheese image</string>
+  <string name="simple_recycler_button_text">Simple Recycler</string>
+  <string name="diffutil_recycler_button_text">Recycler with diffUtil</string>
+  <string name="databinded_recycler_button_text">Recycler with databinding</string>
+  <string name="reordering_recycler_button_text">Recycler with reordering</string>
+  <string name="shuffle">Shuffle</string>
+  <string name="work_in_progress">This feature has been disabled because it\'s a work in progress…</string>
+
+  <string-array name="personNames">
+    <item>Enriqueta Moose</item>
+    <item>Lannie Trumbo</item>
+    <item>Jeannine Cerulli</item>
+    <item>Brigid Lindsley</item>
+    <item>Elicia Wittmer</item>
+    <item>Denisha Mart</item>
+    <item>Tricia Selander</item>
+    <item>Lynelle Heckart</item>
+    <item>Dolly Line</item>
+    <item>Ellyn Pilkenton</item>
+    <item>Adrien Vitti</item>
+    <item>Damian Rines</item>
+    <item>Eva Killen</item>
+    <item>Chiquita Moris</item>
+    <item>Tyree Hartin</item>
+    <item>Marylynn Engler</item>
+    <item>Ludovic Roland</item>
+    <item>Petrina Hicklin</item>
+    <item>Johana Pavao</item>
+    <item>Nathanial Steed</item>
+    <item>Raymond Vanwagoner</item>
+    <item>Chelsea Maxon</item>
+    <item>Jacinta Gloria</item>
+    <item>Angele Henshaw</item>
+    <item>Dalia Bahr</item>
+    <item>Jasmine Lemarr</item>
+    <item>Magnolia Kirch</item>
+    <item>Alvaro Kinnear</item>
+    <item>Anthony Msihid</item>
+    <item>Shantay Teneyck</item>
+    <item>Julian Luebbers</item>
+    <item>Wilfredo Blazier</item>
+    <item>Cory Tadlock</item>
+    <item>Luke Goolsby</item>
+    <item>Rae Pridgen</item>
+    <item>Carma Stotz</item>
+    <item>Brice Ragland</item>
+    <item>Claude Rawley</item>
+    <item>Cornelius Sobolik</item>
+    <item>David Fournier</item>
+    <item>Laurette Galarza</item>
+    <item>Alesha Arizmendi</item>
+    <item>Kerstin Caraway</item>
+    <item>Dee Scovil</item>
+    <item>Shana Lafromboise</item>
+    <item>Janett Spivey</item>
+    <item>Mariano Lach</item>
+    <item>Rod Berlanga</item>
+    <item>Archie Leeder</item>
+    <item>Marcia Grego</item>
+    <item>Shauna Aylesworth</item>
+    <item>Angila Hollaway</item>
+    <item>Mitchel Carnahan</item>
+    <item>Myra Gould</item>
+  </string-array>
+
+</resources>

@@ -5,12 +5,12 @@ apply plugin: "maven-publish"
 
 android
 {
-  compileSdkVersion 27
+  compileSdkVersion rootProject.compileSdkVersion
 
   defaultConfig
   {
-    minSdkVersion 14
-    targetSdkVersion 27
+    minSdkVersion rootProject.minSdkVersion
+    targetSdkVersion rootProject.compileSdkVersion
 
     versionCode 15
     versionName "1.6.0.003-SNAPSHOT"
@@ -35,7 +35,7 @@ android
 dependencies
 {
   // Android
-  implementation ("com.android.support:recyclerview-v7:27.1.1")
+  implementation ("com.android.support:recyclerview-v7:${appcompat_support_library_version}")
 }
 
 task sourcesJar(type: Jar) {
