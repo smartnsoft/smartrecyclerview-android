@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView.LayoutManager;
 import com.smartnsoft.recyclerview.adapter.SmartRecyclerAdapter;
 import com.smartnsoft.recyclerview.wrapper.SmartRecyclerViewWrapper;
 
+import com.smartnsoft.smartrecyclerviewsample.wrappers.ReorderTextWrapper;
 import com.smartnsoft.smartrecyclerviewsample.wrappers.SimpleImageWrapper;
 import com.smartnsoft.smartrecyclerviewsample.wrappers.SimpleTextWrapper;
 
@@ -111,10 +112,20 @@ public abstract class AbstractRecyclerActivity
       }
       else
       {
-        wrappers.add(new SimpleTextWrapper("String #" + index));
+        wrappers.add(
+            shouldActivateTextReordering() ?
+                new ReorderTextWrapper("String #" + index)
+                :
+                new SimpleTextWrapper("String #" + index)
+        );
       }
     }
     return wrappers;
+  }
+
+  protected boolean shouldActivateTextReordering()
+  {
+    return false;
   }
 
 }

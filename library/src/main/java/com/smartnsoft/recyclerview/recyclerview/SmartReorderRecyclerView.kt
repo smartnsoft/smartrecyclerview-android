@@ -41,7 +41,7 @@ class SmartReorderRecyclerView @JvmOverloads constructor(
 ) : RecyclerView(context, attrs, defStyleAttr)
 {
 
-  private val itemTouchHelper = ItemTouchHelper(object :
+  val itemTouchHelper = ItemTouchHelper(object :
       ItemTouchHelper.SimpleCallback(
           ItemTouchHelper.UP or ItemTouchHelper.DOWN or
               ItemTouchHelper.START or ItemTouchHelper.END

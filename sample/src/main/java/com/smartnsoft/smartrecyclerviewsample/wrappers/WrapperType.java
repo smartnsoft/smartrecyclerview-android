@@ -12,11 +12,12 @@ import android.support.annotation.IntDef;
 public final class WrapperType
 {
 
-  @IntDef({SimpleTextWrapper, SimpleImageWrapper, PersonWrapper, TextDiffUtilWrapper})
+  @IntDef({SimpleTextWrapper, SimpleImageWrapper, PersonWrapper, TextDiffUtilWrapper, ReorderTextWrapper})
   public @interface WrapperTypeIdentifier {}
   static final int SimpleTextWrapper = 0;
   static final int SimpleImageWrapper = 1;
   static final int PersonWrapper = 2;
   static final int TextDiffUtilWrapper = 3;
+  static final int ReorderTextWrapper = 4;
 
 }
