@@ -771,8 +771,8 @@ public class SmartRecyclerAdapter
 
   public void moveWrapper(int fromIndex, int toIndex)
   {
-    if (fromIndex > 0 && fromIndex < wrappers.size()
-        && toIndex > 0 && toIndex < wrappers.size())
+    if (fromIndex >= 0 && fromIndex < wrappers.size()
+        && toIndex >= 0 && toIndex < wrappers.size())
     {
       final SmartRecyclerViewWrapper<?> wrapperToMove = wrappers.get(fromIndex);
       if (wrapperToMove != null)
