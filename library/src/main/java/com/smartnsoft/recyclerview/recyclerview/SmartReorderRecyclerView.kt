@@ -94,6 +94,12 @@ class SmartReorderRecyclerView @JvmOverloads constructor(
     super.setAdapter(adapter)
   }
 
+  /**
+   * Start to drag a specific ViewHolder in the RecyclerView for reordering purpose
+   *
+   * @param viewHolder The viewHolder which is being reordered
+   */
+  @Suppress("unused")
   fun startReordering(viewHolder: ViewHolder)
   {
     itemTouchHelper.startDrag(viewHolder)

@@ -769,6 +769,13 @@ public class SmartRecyclerAdapter
     return null;
   }
 
+  /**
+   * Allows you to move a wrapper present at a specific position to a new given position.
+   * If at least one of the parameters is out of bounds for the current list of wrapper, this method won't do anything.
+   *
+   * @param fromIndex The initial position of the wrapper to move
+   * @param toIndex   The final position of the wrapper to move
+   */
   public void moveWrapper(int fromIndex, int toIndex)
   {
     if (fromIndex >= 0 && fromIndex < wrappers.size()

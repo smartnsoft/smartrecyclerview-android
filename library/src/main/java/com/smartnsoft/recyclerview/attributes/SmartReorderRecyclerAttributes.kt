@@ -5,7 +5,9 @@ import android.view.View
 import com.smartnsoft.recyclerview.recyclerview.SmartReorderRecyclerView
 
 /**
- * Is responsible for creating a new {@link View}, which is able to represent the provided business object and be reordered.
+ * This class is responsible for creating a new [View], which is able to represent the provided business object
+ * and can also be reordered using a view as a trigger.
+ * It is similar to a simple [SmartRecyclerAttributes] if the RecyclerView is not a [SmartReorderRecyclerView]
  *
  * @author Adrien Vitti
  * @since 2019.07.15
@@ -14,9 +16,14 @@ abstract class SmartReorderRecyclerAttributes<BusinessObjectType>(view: View)
   : SmartRecyclerAttributes<BusinessObjectType>(view)
 {
 
+  /**
+   * Specify which view can trigger the reordering when touching it.
+   *
+   * @return the view which will be used by the touch listener to move the view in the list
+   */
   abstract fun getTriggerViewForReorder(): View?
 
-  var draggingTouchListener: View.OnTouchListener? = null
+  private var draggingTouchListener: View.OnTouchListener? = null
 
   override fun update(businessObject: BusinessObjectType, isSelected: Boolean)
   {
