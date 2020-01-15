@@ -29,8 +29,8 @@ import android.util.AttributeSet
 import com.smartnsoft.recyclerview.adapter.SmartRecyclerAdapter
 
 /**
- * A [android.support.v7.widget.RecyclerView] that provides reordering with drag&amp;drop. The Adapter has to be of type
- * [SmartRecyclerAdapter]. Furthermore you have to provide stable ids
+ * A [android.support.v7.widget.RecyclerView] that provides reordering with drag&amp;drop.
+ * The Adapter has to be of type [SmartRecyclerAdapter]. Furthermore you have to provide stable ids
  * [android.support.v7.widget.RecyclerView.Adapter.setHasStableIds]
  *
  * @author Adrien Vitti
@@ -41,40 +41,40 @@ class SmartReorderRecyclerView @JvmOverloads constructor(
 ) : RecyclerView(context, attrs, defStyleAttr)
 {
 
-  val itemTouchHelper = ItemTouchHelper(object :
-      ItemTouchHelper.SimpleCallback(
-          ItemTouchHelper.UP or ItemTouchHelper.DOWN or
-              ItemTouchHelper.START or ItemTouchHelper.END
-          , 0)
+  val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+      ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.START or ItemTouchHelper.END,
+      0
+  )
   {
 
     override fun onMove(recyclerView: RecyclerView, viewHolder: ViewHolder,
                         target: ViewHolder): Boolean
     {
       (recyclerView.adapter as? SmartRecyclerAdapter)?.moveWrapper(viewHolder.adapterPosition, target.adapterPosition)
+
       return true
     }
 
     override fun onSwiped(viewHolder: ViewHolder, direction: Int)
     {
-      // Callback when swiping horizontally, we won't do anything here
+      // Callback when swiping horizontally or vertically, we won't do anything here
     }
 
     override fun onSelectedChanged(viewHolder: ViewHolder?,
                                    actionState: Int)
     {
       super.onSelectedChanged(viewHolder, actionState)
-      viewHolder?.itemView
-          ?.takeIf {
-            actionState == ItemTouchHelper.ACTION_STATE_DRAG
-          }
-          ?.apply { alpha = 0.5f }
+
+      viewHolder?.itemView?.takeIf { _ ->
+        actionState == ItemTouchHelper.ACTION_STATE_DRAG
+      }?.apply { alpha = 0.5f }
     }
 
     override fun clearView(recyclerView: RecyclerView,
                            viewHolder: ViewHolder)
     {
       super.clearView(recyclerView, viewHolder)
+
       viewHolder.itemView.alpha = 1.0f
     }
   })
@@ -86,11 +86,12 @@ class SmartReorderRecyclerView @JvmOverloads constructor(
 
   override fun setAdapter(adapter: Adapter<*>?)
   {
-    adapter
-        ?.takeUnless { recyclerAdapter -> recyclerAdapter is SmartRecyclerAdapter && recyclerAdapter.hasStableIds() }
-        ?.also { _ ->
-          throw IllegalStateException("SmartReorderRecyclerView only works with SmartRecyclerAdapter and must have stable ids!")
-        }
+    adapter?.takeUnless { recyclerAdapter ->
+      recyclerAdapter is SmartRecyclerAdapter && recyclerAdapter.hasStableIds()
+    }?.also { _ ->
+      throw IllegalStateException("SmartReorderRecyclerView only works with SmartRecyclerAdapter and must have stable ids!")
+    }
+
     super.setAdapter(adapter)
   }
 

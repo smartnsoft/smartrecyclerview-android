@@ -30,7 +30,7 @@ abstract class SmartReorderRecyclerAttributes<BusinessObjectType>(view: View)
     val triggerViewForReorder = getTriggerViewForReorder()
     if (draggingTouchListener == null)
     {
-      triggerViewForReorder?.let { triggerView ->
+      triggerViewForReorder?.also { triggerView ->
         draggingTouchListener = View.OnTouchListener { _, event ->
           if (event.actionMasked == MotionEvent.ACTION_DOWN)
           {
@@ -41,6 +41,7 @@ abstract class SmartReorderRecyclerAttributes<BusinessObjectType>(view: View)
         triggerView.setOnTouchListener(draggingTouchListener)
       }
     }
+
     super.update(businessObject, isSelected)
   }
 
