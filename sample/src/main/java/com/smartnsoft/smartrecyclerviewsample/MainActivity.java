@@ -45,8 +45,7 @@ public class MainActivity
   {
     if (view == reorderingRecyclerButton)
     {
-      Toast.makeText(this, R.string.work_in_progress, Toast.LENGTH_SHORT).show();
-      // startActivity(new Intent(MainActivity.this, ReorderedRecyclerActivity.class));
+      startActivity(new Intent(MainActivity.this, ReorderedRecyclerActivity.class));
     }
     else if (view == diffutilRecyclerButton)
     {
